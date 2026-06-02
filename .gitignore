@@ -1,0 +1,29 @@
+# Virtual Environments
+backend/venv/
+venv/
+.venv/
+env/
+ENV/
+
+# Environment configurations containing passwords/secrets
+backend/.env
+.env
+
+# Python caching
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp

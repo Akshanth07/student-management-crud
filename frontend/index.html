@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management Hub</title>
+    <meta name="description" content="A premium Student Management CRUD application powered by FastAPI and PostgreSQL.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar or Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                    </svg>
+                </div>
+                <div>
+                    <h1>Student Portal</h1>
+                    <p class="subtitle">FastAPI & PostgreSQL Database Dashboard</p>
+                </div>
+            </div>
+            
+            <!-- Header Actions (Theme Toggle & Status) -->
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                    <!-- Sun Icon -->
+                    <svg class="sun-icon hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21m8.25-9h-2.25C15.75 12 12 15.75 12 19.5m-9-7.5h2.25m3.36-7.03l1.59 1.59m-1.59 10.86l1.59-1.59m8.64-10.86l-1.59 1.59m1.59 10.86l-1.59-1.59M12 7.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9z" />
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </button>
+
+                <div class="status-badge" id="api-status">
+                    <span class="status-dot offline"></span>
+                    <span class="status-text">Connecting API...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Dashboard Content -->
+        <main class="dashboard-content">
+            
+            <!-- Statistics Cards -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">Total Registered Students</span>
+                        <h2 class="stat-value" id="student-count">-</h2>
+                    </div>
+                    <div class="stat-icon-wrapper students-color">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <span class="stat-label">Database Name</span>
+                        <h2 class="stat-value text-small">student_db</h2>
+                    </div>
+                    <div class="stat-icon-wrapper db-color">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V10.125m16.5 0v3.75m-16.5-3.75v3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V13.875" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions and search bar -->
+            <section class="action-bar-section">
+                <div class="search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.604 10.604z" />
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search by name, email or phone...">
+                </div>
+                <button class="btn btn-primary btn-add" id="btn-add-student">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="btn-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Add Student
+                </button>
+            </section>
+
+            <!-- Students Table Card -->
+            <section class="table-section">
+                <div class="card table-card">
+                    <div class="table-wrapper">
+                        <table id="students-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-list">
+                                <!-- Loading State -->
+                                <tr id="table-loading">
+                                    <td colspan="6" class="text-center py-5">
+                                        <div class="spinner"></div>
+                                        <p class="loading-text">Loading student database...</p>
+                                    </td>
+                                </tr>
+                                <!-- Empty State -->
+                                <tr id="table-empty" class="hidden">
+                                    <td colspan="6" class="text-center py-5">
+                                        <div class="empty-state-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A2.25 2.25 0 0112.75 21.5h-1.5a2.25 2.25 0 01-2.25-2.263V19.13m-4.5-1.206a8.93 8.93 0 01-1.397-1.397L1.75 19.5h3v-1.575zm0-2.025a8.98 8.98 0 01-.397-1.397L1.75 16.5h3v-1.575zm0-2.025c-.156-.453-.274-.92-.353-1.397L1.75 13.5h3v-1.575zm0-2.025c-.06-.462-.097-.933-.11-1.41L1.75 10.5h3V8.925zm0-2.025c.01-.462.038-.921.082-1.374L1.75 7.5h3V5.925zm0-2.025c.045-.446.11-.885.195-1.318L1.75 4.5h3V2.925z" />
+                                            </svg>
+                                        </div>
+                                        <h3>No Students Found</h3>
+                                        <p class="text-muted">Get started by clicking the "Add Student" button above.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Student Form Modal (Add / Edit) -->
+    <div class="modal-backdrop" id="student-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Student</h2>
+                <button class="btn-close" id="modal-close-btn" aria-label="Close modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="student-form">
+                <input type="hidden" id="student-id" name="id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first-name" name="first_name" placeholder="e.g. John" required autocomplete="given-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last-name" name="last_name" placeholder="e.g. Doe" required autocomplete="family-name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="e.g. john.doe@example.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g. +1 (123) 456-7890" autocomplete="tel">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modal-submit-btn">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="modal-backdrop" id="delete-modal">
+        <div class="modal-card modal-confirm">
+            <div class="confirm-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <h2>Are you sure?</h2>
+            <p>You are about to delete <strong id="delete-student-name">the student</strong>. This action cannot be undone.</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn-delete-cancel">No, Cancel</button>
+                <button type="button" class="btn btn-danger" id="btn-delete-confirm">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Javascript Script -->
+    <script src="script.js"></script>
+</body>
+</html>
