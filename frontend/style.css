@@ -110,6 +110,13 @@ body {
     }
 }
 
+/* Dashboard Content Spacing */
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 /* Header styling */
 .app-header {
     display: flex;
