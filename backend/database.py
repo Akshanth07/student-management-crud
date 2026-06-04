@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database Connection Configuration
+# Supports DATABASE_URL (Neon/Render format) or individual env vars for local dev
+DATABASE_URL = os.getenv("DATABASE_URL")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_NAME = os.getenv("DB_NAME", "student_db")
 DB_USER = os.getenv("DB_USER", "postgres")
@@ -16,15 +18,21 @@ DB_PORT = os.getenv("DB_PORT", "5432")
 def get_db_connection():
     """
     Establishes and returns a connection to the PostgreSQL database.
+    Prefers DATABASE_URL (Neon cloud format) over individual host/user/pass variables.
     """
     try:
-        conn = psycopg2.connect(
-            host=DB_HOST,
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            port=DB_PORT
-        )
+        if DATABASE_URL:
+            # Use Neon's full connection string (used in production on Render)
+            conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+        else:
+            # Fall back to individual variables for local development
+            conn = psycopg2.connect(
+                host=DB_HOST,
+                database=DB_NAME,
+                user=DB_USER,
+                password=DB_PASSWORD,
+                port=DB_PORT
+            )
         return conn
     except Exception as e:
         print(f"Error connecting to the database: {e}")
